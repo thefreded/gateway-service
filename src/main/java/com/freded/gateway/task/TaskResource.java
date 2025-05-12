@@ -2,6 +2,7 @@ package com.freded.gateway.task;
 
 
 import com.freded.dtos.TaskDTO;
+import com.freded.entities.TaskEntity;
 import com.freded.task.client.TaskClient;
 import com.freded.task.client.entity.TaskQueryDTO;
 import com.freded.task.client.entity.TaskSortAndPaginationDTO;
@@ -27,4 +28,23 @@ public class TaskResource {
     public TaskDTO get(@PathParam("taskId") final String taskId, @BeanParam final TaskQueryDTO taskParams){
         return taskClient.get(taskId, taskParams);
     }
+    @GET
+    public List<TaskDTO> getAll(@BeanParam final TaskSortAndPaginationDTO qParams){
+       return  taskClient.getAll(qParams);
+    }
+
+    @DELETE
+    @Path("{taskId}")
+    public String delete(@PathParam("taskId") final String taskId){
+        return taskClient.delete(taskId);
+    }
+    @PUT
+    @Path("{taskId}")
+    public TaskDTO update(@PathParam("taskId") final String taskId, final TaskDTO task){
+        return taskClient.update(taskId, task);
+    }
 }
+
+
+
+
