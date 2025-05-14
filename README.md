@@ -1,66 +1,54 @@
-# gateway-service
+# Quarkus Gateway Service
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+A simple API gateway service built with Quarkus that routes requests to the Task and File Services.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## Environment Variables
 
-## Running the application in dev mode
+This service requires the following environment variables:
 
-You can run your application in dev mode that enables live coding using:
+| Variable | Description |
+|----------|-------------|
+| `KEYCLOAK_URL` | Base URL of your Keycloak server |
+| `KEYCLOAK_REALM` | Keycloak realm name |
+| `KEYCLOAK_CLIENT_ID` | Client ID for your application in Keycloak |
+| `KEYCLOAK_CLIENT_SECRET` | Client secret for your application in Keycloak |
+| `KEYCLOAK_SCOPE` | OAuth scope for the client |
+| `TASK_API_URL` | URL of the Task Service API |
+| `FILE_API_URL` | URL of the File Service API |
 
-```shell script
-./mvnw quarkus:dev
-```
+## Dependencies
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+- Task Service must be running and accessible at the URL specified in `TASK_API_URL`
+- File Service must be running and accessible at the URL specified in `FILE_API_URL`
 
-## Packaging and running the application
+## Quick Start
 
-The application can be packaged using:
+1. Set the environment variables listed above
+2. Ensure Task Service and File Service are running
+3. Build the application: `./mvnw clean package`
+4. Run the application: `./mvnw quarkus:dev`
 
-```shell script
-./mvnw package
-```
+## API Endpoints
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+The Gateway Service proxies requests to the Task and File Services, as follows:
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+### Task Service Endpoints
 
-If you want to build an _über-jar_, execute the following command:
+| Method | Endpoint                  | Description |
+|--------|---------------------------|-------------|
+| GET | `/api/gateway/tasks`      | List all tasks |
+| GET | `/api/gateway/tasks/{id}` | Get a specific task by ID |
+| POST | `/api/gateway/tasks`      | Create a new task |
+| PUT | `/api/gateway/tasks/{id}` | Update an existing task |
+| DELETE | `/api/gateway/tasks/{id}` | Delete a task |
 
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
+### File Service Endpoints
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+| Method | Endpoint                              | Description |
+|--------|---------------------------------------|-------------|
+| POST | `/api/gateway/document/task/{taskId}` | Upload a file to a specific task |
+| GET | `/api/gateway/document/task/{taskId}` | Get all files associated with a task |
+| GET | `/api/gateway/document/{taskFileId}`  | Get details of a specific file |
 
-## Creating a native executable
 
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/gateway-service-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Related Guides
-
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-
-## Provided Code
-
-### REST
-
-Easily start your REST Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+All endpoints require authentication via Keycloak.
