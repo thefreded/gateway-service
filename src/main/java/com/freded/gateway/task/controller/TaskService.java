@@ -4,7 +4,7 @@ import com.freded.dtos.TaskDTO;
 import com.freded.dtos.TaskFileDTO;
 import com.freded.dtos.TaskFileQueryDTO;
 import com.freded.file.client.TaskFileClient;
-import com.freded.gateway.task.dtos.TaskWithFilesDTO;
+import com.freded.gateway.task.dtos.TaskResponseDTO;
 import com.freded.task.client.TaskClient;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -22,25 +22,32 @@ public class TaskService {
     TaskFileClient taskFileClient;
 
     @Inject
-    TaskWithFilesMapper taskWithFilesMapper;
+    TaskResponseMapper taskWithFilesMapper;
 
-    public TaskWithFilesDTO getFilesForTask(final String taskId, final TaskFileQueryDTO taskFileQueryDTO) {
+    public TaskResponseDTO getTask(final String taskId, final TaskFileQueryDTO taskFileQueryDTO) {
 
         TaskDTO taskDTO = taskClient.get(taskId);
 
         if (taskDTO == null) {
             return null;
         }
-        TaskWithFilesDTO taskWithFilesDTO = taskWithFilesMapper.toTaskWithFiles(taskDTO);
+        TaskResponseDTO taskResponseDTO = taskWithFilesMapper.toTaskWithFiles(taskDTO);
 
         if (!taskFileQueryDTO.isLoadFiles()) {
-            return taskWithFilesDTO;
+            return taskResponseDTO;
         }
 
-        List<TaskFileDTO> taskFiles = taskFileClient.getFilesForTask(taskId, taskFileQueryDTO);
-
-        taskWithFilesDTO.setTaskFiles(taskFiles);
-        
-        return taskWithFilesDTO;
+        return this.getFilesForTask(taskResponseDTO, taskFileQueryDTO);
     }
+
+    private TaskResponseDTO getFilesForTask(final TaskResponseDTO taskResponseDTO, TaskFileQueryDTO taskFileQueryDTO) {
+
+        List<TaskFileDTO> taskFiles = taskFileClient.getFilesForTask(taskResponseDTO.getId(), taskFileQueryDTO);
+
+        taskResponseDTO.setTaskFiles(taskFiles);
+
+        return taskResponseDTO;
+    }
+
+
 }

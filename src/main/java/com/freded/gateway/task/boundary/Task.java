@@ -29,7 +29,7 @@ public class Task {
     @GET
     @Path("{taskId}")
     public TaskDTO get(@PathParam("taskId") final String taskId, @BeanParam final TaskFileQueryDTO taskFileQueryDTO) {
-        return taskService.getFilesForTask(taskId, taskFileQueryDTO);
+        return taskService.getTask(taskId, taskFileQueryDTO);
     }
 
     @GET

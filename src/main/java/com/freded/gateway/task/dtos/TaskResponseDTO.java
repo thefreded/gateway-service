@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TaskWithFilesDTO extends TaskDTO {
+public class TaskResponseDTO extends TaskDTO {
 
     private List<TaskFileDTO> taskFiles = new ArrayList<>();
 }
