@@ -19,9 +19,13 @@
         <quarkus-rest.version>3.20.0</quarkus-rest.version>
         <quarkus-oidc.version>3.20.0</quarkus-oidc.version>
         <quarkus-arc.version>3.20.0</quarkus-arc.version>
-        <file-client.version>1.0.1</file-client.version>
-        <task-shared-resources.version>1.0.0-SNAPSHOT</task-shared-resources.version>
-        <task-client.version>1.0.1</task-client.version>
+        <lombok.version>1.18.34</lombok.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <mapstruct-processor.version>1.6.3</mapstruct-processor.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+        <file-client.version>1.1.3</file-client.version>
+        <task-shared-resources.version>2.0.3</task-shared-resources.version>
+        <task-client.version>1.1.3</task-client.version>
         <github-gateway-service.url>https://maven.pkg.github.com/thefreded/gateway-service</github-gateway-service.url>
         <github-file-client.url>https://maven.pkg.github.com/thefreded/file-service</github-file-client.url>
         <github-shared-resources.url>https://maven.pkg.github.com/thefreded/task-shared-resources
@@ -57,11 +61,25 @@
             <artifactId>quarkus-oidc</artifactId>
             <version>${quarkus-oidc.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.freded</groupId>
             <artifactId>file-client</artifactId>
             <version>${file-client.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.freded</groupId>
+            <artifactId>task-client</artifactId>
+            <version>${task-client.version}</version>
         </dependency>
         <dependency>
             <groupId>com.freded</groupId>
@@ -103,6 +121,27 @@
                 <version>${compiler-plugin.version}</version>
                 <configuration>
                     <parameters>true</parameters>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct-processor.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>${lombok-mapstruct-binding.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <compilerArgs>
+                        <arg>-Amapstruct.defaultComponentModel=jakarta</arg>
+                        <arg>-Amapstruct.defaultInjectionStrategy=constructor</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
