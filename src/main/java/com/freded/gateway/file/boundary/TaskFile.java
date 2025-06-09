@@ -3,10 +3,11 @@ package com.freded.gateway.file.boundary;
 import com.freded.dtos.TaskFileDTO;
 import com.freded.dtos.TaskFilePaginationAndSortingDTO;
 import com.freded.dtos.TaskFileUploadDTO;
-import com.freded.file.client.TaskFileClient;
+import com.freded.file.client.TaskFileRestClient;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.List;
 
@@ -14,7 +15,8 @@ import java.util.List;
 public class TaskFile {
 
     @Inject
-    TaskFileClient taskFileClient;
+    @RestClient
+    TaskFileRestClient taskFileClient;
 
     @POST
     @Path("task/{taskId}")

@@ -3,11 +3,12 @@ package com.freded.gateway.task.controller;
 import com.freded.dtos.TaskDTO;
 import com.freded.dtos.TaskFileDTO;
 import com.freded.dtos.TaskFileQueryDTO;
-import com.freded.file.client.TaskFileClient;
+import com.freded.file.client.TaskFileRestClient;
 import com.freded.gateway.task.dtos.TaskResponseDTO;
-import com.freded.task.client.TaskClient;
+import com.freded.task.client.TaskRestClient;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.List;
 
@@ -16,10 +17,12 @@ public class TaskService {
 
 
     @Inject
-    TaskClient taskClient;
+    @RestClient
+    TaskRestClient taskClient;
 
     @Inject
-    TaskFileClient taskFileClient;
+    @RestClient
+    TaskFileRestClient taskFileClient;
 
     @Inject
     TaskResponseMapper taskWithFilesMapper;

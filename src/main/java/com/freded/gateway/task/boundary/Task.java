@@ -5,9 +5,11 @@ import com.freded.dtos.TaskDTO;
 import com.freded.dtos.TaskFileQueryDTO;
 import com.freded.dtos.TaskPaginationAndSortingDTO;
 import com.freded.gateway.task.controller.TaskService;
-import com.freded.task.client.TaskClient;
+import com.freded.gateway.task.dtos.TaskResponseDTO;
+import com.freded.task.client.TaskRestClient;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.List;
 
@@ -15,7 +17,8 @@ import java.util.List;
 public class Task {
 
     @Inject
-    TaskClient taskClient;
+    @RestClient
+    TaskRestClient taskClient;
 
     @Inject
     TaskService taskService;
@@ -28,7 +31,8 @@ public class Task {
 
     @GET
     @Path("{taskId}")
-    public TaskDTO get(@PathParam("taskId") final String taskId, @BeanParam final TaskFileQueryDTO taskFileQueryDTO) {
+    public TaskResponseDTO get(@PathParam("taskId") final String taskId,
+            @BeanParam final TaskFileQueryDTO taskFileQueryDTO) {
         return taskService.getTask(taskId, taskFileQueryDTO);
     }
 
