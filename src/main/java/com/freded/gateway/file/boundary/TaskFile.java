@@ -4,6 +4,7 @@ import com.freded.dtos.TaskFileDTO;
 import com.freded.dtos.TaskFilePaginationAndSortingDTO;
 import com.freded.dtos.TaskFileUploadDTO;
 import com.freded.file.client.TaskFileRestClient;
+import com.freded.gateway.file.controller.FileService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -18,13 +19,16 @@ public class TaskFile {
     @RestClient
     TaskFileRestClient taskFileClient;
 
+    @Inject
+    FileService fileService;
+
     @POST
     @Path("task/{taskId}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public TaskFileDTO uploadFileToTask(@PathParam("taskId") final String taskId,
             @BeanParam final TaskFileUploadDTO taskFileUploadDTO) {
-        return taskFileClient.uploadFileToTask(taskId, taskFileUploadDTO);
+        return fileService.uploadFileToTask(taskId, taskFileUploadDTO);
     }
 
     @GET
