@@ -34,7 +34,6 @@ public class TaskFile {
     @GET
     @Path("task/{taskId}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public List<TaskFileDTO> getFilesForTask(@PathParam("taskId") final String taskId,
             @BeanParam final TaskFilePaginationAndSortingDTO taskFilePaginationAndSortingDTO) {
         return taskFileClient.getFilesForTask(taskId, taskFilePaginationAndSortingDTO);
@@ -43,9 +42,14 @@ public class TaskFile {
     @GET
     @Path("{taskFileId}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public TaskFileDTO getFileDetails(@PathParam("taskFileId") final String taskFileId) {
         return taskFileClient.getFileDetails(taskFileId);
     }
 
+    @GET
+    @Path("preview/{taskFileId}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFileUrl(@PathParam("taskFileId") final String taskFileId) {
+        return taskFileClient.getFileUrl(taskFileId);
+    }
 }
