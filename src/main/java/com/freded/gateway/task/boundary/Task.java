@@ -1,12 +1,12 @@
 package com.freded.gateway.task.boundary;
 
 
-import com.freded.dtos.TaskDTO;
-import com.freded.dtos.TaskFileQueryDTO;
-import com.freded.dtos.TaskPaginationAndSortingDTO;
+import com.freded.file.client.dto.TaskFileQueryDTO;
 import com.freded.gateway.task.controller.TaskService;
-import com.freded.gateway.task.dtos.TaskResponseDTO;
+import com.freded.gateway.task.dto.TaskResponseDTO;
 import com.freded.task.client.TaskRestClient;
+import com.freded.task.client.dto.TaskDTO;
+import com.freded.task.client.dto.TaskPaginationAndSortingDTO;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import org.eclipse.microprofile.rest.client.inject.RestClient;

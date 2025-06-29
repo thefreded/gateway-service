@@ -1,10 +1,11 @@
 package com.freded.gateway.file.controller;
 
-import com.freded.dtos.TaskDTO;
-import com.freded.dtos.TaskFileDTO;
-import com.freded.dtos.TaskFileUploadDTO;
+
 import com.freded.file.client.TaskFileRestClient;
+import com.freded.file.client.dto.TaskFileDTO;
+import com.freded.file.client.dto.TaskFileUploadDTO;
 import com.freded.task.client.TaskRestClient;
+import com.freded.task.client.dto.TaskDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
@@ -27,7 +28,7 @@ public class FileService {
         if (this.validateTaskId(taskId)) {
             return taskFileClient.uploadFileToTask(taskId, taskFileUploadDTO);
         }
-        
+
         throw new NotFoundException("Task with Id does not exist");
     }
 

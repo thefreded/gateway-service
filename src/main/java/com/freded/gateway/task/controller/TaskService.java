@@ -1,11 +1,12 @@
 package com.freded.gateway.task.controller;
 
-import com.freded.dtos.TaskDTO;
-import com.freded.dtos.TaskFileDTO;
-import com.freded.dtos.TaskFileQueryDTO;
+
 import com.freded.file.client.TaskFileRestClient;
-import com.freded.gateway.task.dtos.TaskResponseDTO;
+import com.freded.file.client.dto.TaskFileDTO;
+import com.freded.file.client.dto.TaskFileQueryDTO;
+import com.freded.gateway.task.dto.TaskResponseDTO;
 import com.freded.task.client.TaskRestClient;
+import com.freded.task.client.dto.TaskDTO;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.rest.client.inject.RestClient;

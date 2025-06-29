@@ -1,7 +1,8 @@
-package com.freded.gateway.task.dtos;
+package com.freded.gateway.task.dto;
 
-import com.freded.dtos.TaskDTO;
-import com.freded.dtos.TaskFileDTO;
+
+import com.freded.file.client.dto.TaskFileDTO;
+import com.freded.task.client.dto.TaskDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

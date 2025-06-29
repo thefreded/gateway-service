@@ -1,8 +1,8 @@
 package com.freded.gateway.task.controller;
 
 
-import com.freded.dtos.TaskDTO;
-import com.freded.gateway.task.dtos.TaskResponseDTO;
+import com.freded.gateway.task.dto.TaskResponseDTO;
+import com.freded.task.client.dto.TaskDTO;
 import org.mapstruct.Mapper;
 
 @Mapper()
