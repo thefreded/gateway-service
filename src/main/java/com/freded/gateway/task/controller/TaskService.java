@@ -15,8 +15,7 @@ import java.util.List;
 
 @RequestScoped
 public class TaskService {
-
-
+    
     @Inject
     @RestClient
     TaskRestClient taskClient;
