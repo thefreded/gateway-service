@@ -34,7 +34,7 @@ public class FileService {
 
 
     private Boolean validateTaskId(final String taskId) {
-        TaskDTO taskDTO = taskRestClient.get(taskId);
+        final TaskDTO taskDTO = taskRestClient.get(taskId);
 
         return taskDTO != null;
     }

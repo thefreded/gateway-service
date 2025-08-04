@@ -196,10 +196,6 @@
 
     <repositories>
         <repository>
-            <id>github-shared-resources</id>
-            <url>${github-shared-resources.url}</url>
-        </repository>
-        <repository>
             <id>github-file-client</id>
             <url>${github-file-client.url}</url>
         </repository>

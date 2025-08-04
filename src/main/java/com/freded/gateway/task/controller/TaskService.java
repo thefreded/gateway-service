@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequestScoped
 public class TaskService {
-    
+
     @Inject
     @RestClient
     TaskRestClient taskClient;
@@ -29,7 +29,7 @@ public class TaskService {
 
     public TaskResponseDTO getTask(final String taskId, final TaskFileQueryDTO taskFileQueryDTO) {
 
-        TaskDTO taskDTO = taskClient.get(taskId);
+        final TaskDTO taskDTO = taskClient.get(taskId);
 
         if (taskDTO == null) {
             return null;
@@ -45,7 +45,7 @@ public class TaskService {
 
     private TaskResponseDTO getFilesForTask(final TaskResponseDTO taskResponseDTO, TaskFileQueryDTO taskFileQueryDTO) {
 
-        List<TaskFileDTO> taskFiles = taskFileClient.getFilesForTask(taskResponseDTO.getId(), taskFileQueryDTO);
+        final List<TaskFileDTO> taskFiles = taskFileClient.getFilesForTask(taskResponseDTO.getId(), taskFileQueryDTO);
 
         taskResponseDTO.setTaskFiles(taskFiles);
 
